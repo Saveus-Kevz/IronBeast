@@ -5,6 +5,7 @@ import Enumeration.MembershipType;
 import Model.Member;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,36 +33,57 @@ public class GymService extends BaseGymService{
     public void registerMember(Scanner scan){
 
         try{
-            System.out.print("Enter first name: ");
-            String firstName = scan.nextLine();
-            if (firstName.isEmpty()){
-                throw new IllegalArgumentException("First name cannot be empty.");
+            String firstName;
+            while (true){
+                System.out.print("Enter first name: ");
+                firstName = scan.nextLine().trim();
+                if (!firstName.isEmpty()){
+                    break;
+                }
+                System.out.println("First name cannot be empty.");
             }
 
-            System.out.print("Enter last name: ");
-            String lastName = scan.nextLine();
-            if(lastName.isEmpty()){
-                throw new IllegalArgumentException("Second name cannot be empty.");
+            String lastName;
+            while (true){
+                System.out.print("Enter last name: ");
+                lastName = scan.nextLine().trim();
+                if (!lastName.isEmpty()){
+                    break;
+                }
+                System.out.println("Last name cannot be empty.");
             }
 
-            System.out.print("Enter membership type (0 - Basic, 1 - Premium, 2 - VIP): ");
-            int memberType = Integer.parseInt(scan.nextLine());
-            if (memberType < 0 || memberType > 2){
-                throw new IllegalArgumentException("Invalid membership type");
+            MembershipType membershipType;
+            while (true){
+                try{
+                    System.out.print("Enter membership type (0 - Basic, 1 - Premium, 2 - VIP): ");
+                    int memberType = Integer.parseInt(scan.nextLine());
+                    if (memberType >= 0 && memberType <= 2){
+                        membershipType = MembershipType.values()[memberType];
+                        break;
+                    } else System.out.println("Invalid membership type. Please enter (0, 1, or 2).\n");
+                }catch (NumberFormatException e){
+                    System.out.println("Please enter a valid number (0, 1, or 2).\n");
+                }
             }
-            MembershipType membershipType = MembershipType.values()[memberType];
 
-            System.out.print("Enter birthdate: ");
-            LocalDate birthDate = null;
-
-            try{
-                birthDate = LocalDate.parse(scan.nextLine().trim());
-            } catch (IllegalArgumentException e){
-                System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+            LocalDate birthDate;
+            while (true) {
+                try {
+                    System.out.print("Enter birthdate (YYYY-MM-DD): ");
+                    String dateInput = scan.nextLine().trim();
+                    birthDate = LocalDate.parse(dateInput);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Invalid date format. Please use YYYY-MM-DD.\n");
+                }
             }
 
             System.out.print("Enter gender (0 - MALE, 1 - FEMALE): ");
             int gender = Integer.parseInt(scan.nextLine());
+            if (gender < 0 || gender > 1){
+                throw new IllegalArgumentException("Invalid input.\n");
+            }
             Gender genderEnum = Gender.values()[gender];
 
             System.out.print("Enter contact number: ");
