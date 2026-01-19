@@ -1,6 +1,6 @@
-package App;
+package app;
 
-import Controller.MenuController;
+import controller.MenuController;
 
 public class IronBeast {
 

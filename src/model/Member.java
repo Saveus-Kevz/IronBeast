@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Enumeration.Gender;
-import Enumeration.MembershipType;
+import enumeration.Gender;
+import enumeration.MembershipType;
 
 import java.time.LocalDate;
 
@@ -12,6 +12,7 @@ public class Member {
     private static int idCtr = 1;
     private String firstName;
     private String lastName;
+    private String emailAddress;
     private MembershipType membershipType;
     private LocalDate birthdate;
     private Gender gender;
@@ -20,31 +21,36 @@ public class Member {
     private LocalDate membershipStartDate;
     private LocalDate membershipEndDate;
 
-    public Member(String firstName, String lastName, MembershipType membershipType, LocalDate birthdate, Gender gender, String contactNumber, String address) {
+    public Member(String firstName, String lastName,
+                  String emailAddress,MembershipType membershipType,
+                  LocalDate birthdate, Gender gender,
+                  String contactNumber, String address) {
+
         this.memberId = idCtr++;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.emailAddress = emailAddress;
         this.membershipType = membershipType;
         this.birthdate = birthdate;
         this.gender = gender;
         this.contactNumber = contactNumber;
         this.address = address;
+
         this.membershipStartDate = LocalDate.now();
-        this.membershipEndDate = membershipStartDate.plusMonths(membershipType.getDurationInMonths());
+        this.membershipEndDate = LocalDate.now().plusMonths(membershipType.getDurationInMonths());
     }
 
     // Test Members with expired membership date
     public Member(String firstName, String lastName,
-                  MembershipType membershipType,
-                  LocalDate birthdate,
-                  Gender gender,
-                  String contactNumber,
-                  String address,
+                  String emailAddress, MembershipType membershipType,
+                  LocalDate birthdate, Gender gender,
+                  String contactNumber, String address,
                   LocalDate membershipStartDate) {
 
         this.memberId = idCtr++;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.emailAddress = emailAddress;
         this.membershipType = membershipType;
         this.birthdate = birthdate;
         this.gender = gender;
@@ -84,6 +90,18 @@ public class Member {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     public MembershipType getMembershipType() {
@@ -141,4 +159,6 @@ public class Member {
     public void setMembershipEndDate(LocalDate membershipEndDate) {
         this.membershipEndDate = membershipEndDate;
     }
+
+
 }
