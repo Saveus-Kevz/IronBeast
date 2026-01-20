@@ -48,7 +48,7 @@ public class InputValidator {
                 }
 
                 // Optional: Check for reasonable maximum age
-                if (age > 120) {
+                if (age > 200) {
                     System.out.println("Invalid birthdate. Please verify.");
                     continue;
                 }
@@ -63,7 +63,7 @@ public class InputValidator {
     public static String validateContactNumber(Scanner scan, String prompt) {
         String input;
         while (true) {
-            System.out.print(prompt + " (Mobile: 0915-768-4654, Landline: 02-XXXX-XXXX): ");
+            System.out.print(prompt + "(Mobile: 09XX-XXX-XXXX, Landline: 02-XXXX-XXXX): ");
             input = scan.nextLine().trim();
 
             if (input.isEmpty()) {

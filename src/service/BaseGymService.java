@@ -1,28 +1,23 @@
 package service;
 
-import model.Member;
+import storage.FileHandler;
 import util.DisplayUtil;
 import util.InputValidator;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
 public abstract class BaseGymService implements IGymService{
-    List<Member> memberList = new LinkedList<>();
 
     @Override
-    public void showActiveMembersHandle(Scanner scan) {
+    public void showActiveMembers(Scanner scan) {
 
         boolean stayInView;
 
         DisplayUtil.displayActiveMembersHeader("ACTIVE MEMBERS");
 
-        memberList.stream()
-                .filter(Member::isActive)
-                .forEach(m -> System.out.printf(
+        FileHandler.getActiveMembers().forEach(m -> System.out.printf(
                         "\033[1;96m%-5d %-25s %-10s %-15s %-10s\033[0m%n",
                         m.getMemberId(),
                         (m.getFirstName() + " " + m.getLastName()).toUpperCase(),
@@ -39,15 +34,13 @@ public abstract class BaseGymService implements IGymService{
     }
 
     @Override
-    public void showInactiveMembersHandle(Scanner scan) {
+    public void showInactiveMembers(Scanner scan) {
 
         boolean stayInView;
 
         DisplayUtil.displayInactiveMembersHeader("INACTIVE MEMBERS");
 
-        memberList.stream()
-                .filter(m -> !m.isActive())
-                .forEach(m -> {
+        FileHandler.getInactiveMembers().forEach(m -> {
                     long daysExpired = ChronoUnit.DAYS.between(
                             m.getMembershipEndDate(), LocalDate.now());
 

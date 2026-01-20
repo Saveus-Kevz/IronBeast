@@ -18,15 +18,15 @@ public class MenuController {
                 int choice = getMenuChoice();
 
                 switch (choice){
-                    case 1 -> gymService.registerMemberHandle(scan);
-                    case 2 -> gymService.showActiveMembersHandle(scan);
-                    case 3 -> gymService.showInactiveMembersHandle(scan);
-                    case 4 -> gymService.renewMembershipHandle(scan);
+                    case 1 -> gymService.registerMember(scan);
+                    case 2 -> gymService.showActiveMembers(scan);
+                    case 3 -> gymService.showInactiveMembers(scan);
+                    case 4 -> gymService.renewMembership(scan);
                     case 5 -> gymService.updateMemberInformation(scan);
-                    case 6 -> gymService.deleteMember();
-                    case 7 -> gymService.memberLookupHandle();
+                    case 6 -> gymService.deleteMember(scan);
+                    case 7 -> gymService.memberLookupHandle(scan);
                     case 99 -> {
-                        System.out.println("Thank you for using this application!\n");
+                        System.out.println("\nTHANK YOU FOR USING THIS APPLICATION!!\n");
                         appRunning = false;
                     }
                     default -> System.out.println("Invalid input.\n");
@@ -35,6 +35,8 @@ public class MenuController {
                 System.out.println("Invalid input.\n");
             }
         }while (appRunning);
+
+        scan.close();
     }
 
     private int getMenuChoice() {
@@ -44,11 +46,10 @@ public class MenuController {
                 if (choice >= 1 && choice <= 7 || choice == 99) {
                     return choice;
                 }
-                System.out.println("Invalid option. Please enter 1-7 or 99.");
+                System.out.print("Invalid option. Please enter (1-7 or 99): ");
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid number.");
+                System.out.print("Please enter a valid number (1-7 or 99): ");
             }
         }
     }
-
 }

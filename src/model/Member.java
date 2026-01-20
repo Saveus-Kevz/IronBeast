@@ -9,7 +9,6 @@ public class Member {
 
     private int memberId;
 
-    private static int idCtr = 1;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -22,11 +21,11 @@ public class Member {
     private LocalDate membershipEndDate;
 
     public Member(String firstName, String lastName,
-                  String emailAddress,MembershipType membershipType,
+                  String emailAddress, MembershipType membershipType,
                   LocalDate birthdate, Gender gender,
-                  String contactNumber, String address) {
+                  String contactNumber, String address,
+                  LocalDate membershipStartDate) {
 
-        this.memberId = idCtr++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -38,28 +37,6 @@ public class Member {
 
         this.membershipStartDate = LocalDate.now();
         this.membershipEndDate = LocalDate.now().plusMonths(membershipType.getDurationInMonths());
-    }
-
-    // Test Members with expired membership date
-    public Member(String firstName, String lastName,
-                  String emailAddress, MembershipType membershipType,
-                  LocalDate birthdate, Gender gender,
-                  String contactNumber, String address,
-                  LocalDate membershipStartDate) {
-
-        this.memberId = idCtr++;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.membershipType = membershipType;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.contactNumber = contactNumber;
-        this.address = address;
-
-        this.membershipStartDate = membershipStartDate;
-        this.membershipEndDate =
-                membershipStartDate.plusMonths(membershipType.getDurationInMonths());
     }
 
     public Member(){}
@@ -146,10 +123,6 @@ public class Member {
 
     public LocalDate getMembershipStartDate() {
         return membershipStartDate;
-    }
-
-    public void setMembershipStartDate(LocalDate membershipStartDate) {
-        this.membershipStartDate = membershipStartDate;
     }
 
     public LocalDate getMembershipEndDate() {
