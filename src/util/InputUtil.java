@@ -2,15 +2,23 @@ package util;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Scanner;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
-public class InputValidator {
-    public static String validateNonEmptyString(Scanner scan, String prompt) {
-        String input;
+public class InputUtil {
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+    private InputUtil() {}
+
+    // ================= SIMPLIFIED INPUT METHODS =================
+
+    /**
+     * Gets a string input and ensures it's not empty
+     */
+    public static String getString(String prompt) {
         while (true) {
             System.out.print(prompt);
-            input = scan.nextLine().trim();
+            String input = SCANNER.nextLine().trim();
             if (!input.isEmpty()) {
                 return input;
             }
@@ -18,11 +26,14 @@ public class InputValidator {
         }
     }
 
-    public static int validateIntInRange(Scanner scan, String prompt, int min, int max) {
+    /**
+     * Gets an integer input within a specified range
+     */
+    public static int getInt(String prompt, int min, int max) {
         while (true) {
             try {
                 System.out.print(prompt);
-                int value = Integer.parseInt(scan.nextLine().trim());
+                int value = Integer.parseInt(SCANNER.nextLine().trim());
                 if (value >= min && value <= max) {
                     return value;
                 }
@@ -33,13 +44,32 @@ public class InputValidator {
         }
     }
 
-    public static LocalDate getDate(Scanner scan, String prompt, int minAge) {
+    /**
+     * Gets a Yes/No answer (returns boolean)
+     */
+    public static boolean getYesNo(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (Y/N): ");
+            String input = SCANNER.nextLine().trim().toUpperCase();
+
+            if (input.equals("Y")) return true;
+            if (input.equals("N")) return false;
+            System.out.println("Invalid input. Please enter only Y or N.");
+        }
+    }
+
+    // ================= SPECIALIZED VALIDATION METHODS =================
+    // (These have unique logic, so keep them separate)
+
+    /**
+     * Gets a valid date with minimum age requirement
+     */
+    public static LocalDate getDate(String prompt, int minAge) {
         while (true) {
             try {
                 System.out.print(prompt);
-                LocalDate birthDate = LocalDate.parse(scan.nextLine().trim());
+                LocalDate birthDate = LocalDate.parse(SCANNER.nextLine().trim());
 
-                // Calculate age
                 int age = Period.between(birthDate, LocalDate.now()).getYears();
 
                 if (age < minAge) {
@@ -47,7 +77,6 @@ public class InputValidator {
                     continue;
                 }
 
-                // Optional: Check for reasonable maximum age
                 if (age > 200) {
                     System.out.println("Invalid birthdate. Please verify.");
                     continue;
@@ -60,21 +89,23 @@ public class InputValidator {
         }
     }
 
-    public static String validateContactNumber(Scanner scan, String prompt) {
+    /**
+     * Gets a valid Philippine phone number
+     */
+    public static String getPhoneNumber(String prompt) {
         String input;
         while (true) {
             System.out.print(prompt + "(Mobile: 09XX-XXX-XXXX, Landline: 02-XXXX-XXXX): ");
-            input = scan.nextLine().trim();
+            input = SCANNER.nextLine().trim();
 
             if (input.isEmpty()) {
                 System.out.println("Contact number cannot be empty.\n");
                 continue;
             }
 
-            // Remove all non-digits
             String digitsOnly = input.replaceAll("[^0-9]", "");
 
-            // MOBILE: 11 digits starting with 09 (0915-768-4654 = 11 digits)
+            // MOBILE: 11 digits starting with 09
             if (digitsOnly.length() == 11 && digitsOnly.startsWith("09")) {
                 char thirdDigit = digitsOnly.charAt(2);
                 if (thirdDigit >= '1' && thirdDigit <= '9') {
@@ -89,7 +120,7 @@ public class InputValidator {
                 }
             }
 
-            // INTERNATIONAL FORMAT: +639XXXXXXXXX (12 digits = 63 + 9 + 10 digits)
+            // INTERNATIONAL FORMAT: +639XXXXXXXXX
             if (digitsOnly.length() == 12 && digitsOnly.startsWith("639")) {
                 return "+" + digitsOnly.substring(0, 3) + " " +
                         digitsOnly.substring(3, 6) + "-" +
@@ -104,76 +135,30 @@ public class InputValidator {
         }
     }
 
-    private static String formatMobile(String digits) {
-        // Format: 09XX-XXX-XXXX (11 digits: 09 + 9 digits)
-        // Example: 09157684654 -> 0915-768-4654
-        if (digits.length() == 11) {
-            return digits.substring(0, 4) + "-" +
-                    digits.substring(4, 7) + "-" +
-                    digits.substring(7);
-        }
-        return digits;
-    }
-
-    private static String formatLandline(String digits) {
-        // Format landline based on length
-        if (digits.length() == 8) {
-            // Metro Manila: 02-XXXXXXX
-            return digits.substring(0, 2) + "-" + digits.substring(2);
-        } else {
-            String s = digits.substring(0, 3) + "-" +
-                    digits.substring(3, 6) + "-" +
-                    digits.substring(6);
-            if (digits.length() == 9) {
-                // Provincial: 032-XXX-XXXX
-                return s;
-            } else if (digits.length() == 10) {
-                // Provincial: 035-XXX-XXXX or with extra digit
-                return s;
-            }
-        }
-        return digits;
-    }
-
-    public static boolean getYesNo(Scanner scan, String prompt) {
-        while (true) {
-            System.out.print(prompt + " (Y/N): ");
-            String input = scan.nextLine().trim().toUpperCase();
-
-            if (input.equals("Y")) {
-                return true;
-            } else if (input.equals("N")) {
-                return false;
-            } else {
-                System.out.println("Invalid input. Please enter only Y or N.");
-            }
-        }
-    }
-
-    public static String validateAddress(Scanner scan, String prompt) {
+    /**
+     * Gets a valid address
+     */
+    public static String getInputAddress(String prompt) {
         String input;
         while (true) {
             System.out.print(prompt);
-            input = scan.nextLine().trim();
+            input = SCANNER.nextLine().trim();
 
             if (input.isEmpty()) {
                 System.out.println("Address cannot be empty.\n");
                 continue;
             }
 
-            // Minimum length check
             if (input.length() < 5) {
                 System.out.println("Address is too short. Please provide more details.\n");
                 continue;
             }
 
-            // Maximum length check (for database constraints)
             if (input.length() > 200) {
                 System.out.println("Address is too long. Maximum 200 characters.\n");
                 continue;
             }
 
-            // Check for invalid characters (optional, but prevents some abuse)
             if (input.matches(".*[<>\"';].*")) {
                 System.out.println("Address contains invalid characters. Please remove <, >, \", ', ;\n");
                 continue;
@@ -183,4 +168,32 @@ public class InputValidator {
         }
     }
 
+    // ================= HELPER METHODS =================
+
+    private static String formatMobile(String digits) {
+        if (digits.length() == 11) {
+            return digits.substring(0, 4) + "-" +
+                    digits.substring(4, 7) + "-" +
+                    digits.substring(7);
+        }
+        return digits;
+    }
+
+    private static String formatLandline(String digits) {
+        if (digits.length() == 8) {
+            return digits.substring(0, 2) + "-" + digits.substring(2);
+        } else {
+            String s = digits.substring(0, 3) + "-" +
+                    digits.substring(3, 6) + "-" +
+                    digits.substring(6);
+            if (digits.length() == 9 || digits.length() == 10) {
+                return s;
+            }
+        }
+        return digits;
+    }
+
+    public static void closeScanner() {
+        SCANNER.close();
+    }
 }

@@ -37,7 +37,7 @@ public class FileHandler {
 
             // Skip header row (index 0)
             for (int i = 1; i < lines.size(); i++) {
-                String[] columns = lines.get(i).split(",", -1); // -1 keeps empty values
+                String[] columns = lines.get(i).split(","); // -1 keeps empty values
 
                 // Parse each column
                 int memberId = Integer.parseInt(columns[0].trim());

@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Scanner;
 
 public class DisplayUtil {
 
@@ -34,10 +33,10 @@ public class DisplayUtil {
             \033[1;93m════════════════════════════════════════════════════════════════════\033[0m
             Enter your choice (1-7, 99):\s""");
     }
-    public static void handleEmptyList(Scanner scan, String context) {
+    public static void handleEmptyList(String context) {
         System.out.println("\n❌ \033[1;91mEMPTY LIST. " + context + "\n\033[0m");
 
-        boolean stayInView = InputValidator.getYesNo(scan, "Return to main menu?");
+        boolean stayInView = InputUtil.getYesNo("Return to main menu?");
         if (!stayInView) {
             System.out.println("Thank you for using this application!\n");
             System.exit(0);
