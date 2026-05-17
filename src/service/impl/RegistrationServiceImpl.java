@@ -16,7 +16,7 @@ public class RegistrationServiceImpl implements service.RegistrationService {
     public void registerMember() {
         do {
             Member newMember = collectMemberInformation();
-            confirmAndRegister(newMember)       ;
+            confirmAndRegister(newMember);
 
         } while (InputUtil.getYesNo("\033[1;96mRegister another member?\033[0m"));
     }
@@ -38,10 +38,12 @@ public class RegistrationServiceImpl implements service.RegistrationService {
         String contactNumber = InputUtil.getPhoneNumber("Enter Contact Number\n");
         String address = InputUtil.getInputAddress("Enter Address: ");
 
+        LocalDate membershipStartDate = LocalDate.now();
+
         return new Member(
                 firstName, lastName, emailAddress,
                 membershipType, birthDate, genderEnum,
-                contactNumber, address, LocalDate.now()
+                contactNumber, address, membershipStartDate
         );
     }
 

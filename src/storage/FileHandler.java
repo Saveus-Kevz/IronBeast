@@ -24,6 +24,7 @@ public class FileHandler {
         loadFromFile();
     }
 
+
     // Load data from CSV file
     private static void loadFromFile() {
         members.clear();

@@ -35,7 +35,7 @@ public class Member {
         this.contactNumber = contactNumber;
         this.address = address;
 
-        this.membershipStartDate = LocalDate.now();
+        this.membershipStartDate = membershipStartDate;
         this.membershipEndDate = LocalDate.now().plusMonths(membershipType.getDurationInMonths());
     }
 

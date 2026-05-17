@@ -20,7 +20,7 @@ public class MenuController {
         do{
             try{
                 DisplayUtil.mainMenuDisplay();
-                int choice = InputUtil.getInt("Enter choice: ", 1, 99);
+                int choice = InputUtil.getInt(" Enter your choice (1-7, 99): ", 1, 99);
 
                 switch (choice){
                     case 1 -> registrationServiceImpl.registerMember();

@@ -1,8 +1,9 @@
 id,firstName,lastName,email,membershipType,birthdate,gender,contactNumber,address,membershipStartDate,membershipEndDate
 1,Hashirama,Senju,HokageSakalam@ninjamail.com,BASIC,1907-01-23,PREFER_NOT_TO_SAY,0922-234-1234,Okinawa street; district 2; konoha,2026-01-21,2026-02-20
 2,Satoru,Gojo,DomainExpansion@jutjutsuhigh.com,VIP,1995-06-26,MALE,0923-431-9623,332-1240; Hayashimachi; Komatsu-shi; Ishikawa,2026-01-21,2026-04-20
-3,Geto,Getoo,kesv123@gaweaw,PREMIUM,1994-03-23,MALE,0912-243-2342,12321 123123,2026-01-21,2026-04-20
-4,Johnyyyyy,Bravooo,koakweo@gkoakwdaw,PREMIUM,1995-06-26,MALE,0915-768-4654,258 awkjdkwadiw,2026-01-21,2025-02-20
-5,Edie,Wow,Weew@gmail.com,BASIC,1992-06-24,MALE,0988-242-2312,242 lasdkasd,2026-01-21,2026-02-20
+3,Geto,Getoo,kesv123@gaweaw,VIP,1994-03-23,MALE,0912-243-2342,12321 123123,2026-01-21,2027-04-20
+4,Johnyyyyy,Bravooo,koakweo@gkoakwdaw,VIP,1995-06-26,MALE,0915-768-4654,258 awkjdkwadiw,2026-01-21,2027-01-22
+5,Kierr,Smith,kierr@any.com,BASIC,1992-01-23,PREFER_NOT_TO_SAY,021-224-2312,258 wadkadwada,2026-01-21,2026-02-20
 7,Kevin,Flores,123@gawdawd,VIP,1995-06-26,MALE,0915-768-4654,kwaevw 12312,2026-01-21,2027-01-20
 8,Lola,nenas,lolanenas@gmail.com,VIP,1903-02-23,FEMALE,0912-123-4231,249 oawidoaiwd,2026-01-21,2027-01-21
+10,Eric,Del rosario,eric@uplift.com,PREMIUM,1999-03-23,MALE,0912-123-2421,258 awdwadwadw,2026-01-22,2026-04-22

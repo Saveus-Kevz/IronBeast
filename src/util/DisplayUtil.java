@@ -31,7 +31,7 @@ public class DisplayUtil {
             \033[1;31m      \t\t[99]\033[0m  \033[1;97m\tExit Program\033[0m
             
             \033[1;93m════════════════════════════════════════════════════════════════════\033[0m
-            Enter your choice (1-7, 99):\s""");
+            """);
     }
     public static void handleEmptyList(String context) {
         System.out.println("\n❌ \033[1;91mEMPTY LIST. " + context + "\n\033[0m");
